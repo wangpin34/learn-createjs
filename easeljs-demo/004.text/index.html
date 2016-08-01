@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>easeljs text demo</title>
+  </head>
+  <body>
+    <canvas id="myCanvas"></canvas>
+  </body>
+  <script type="text/javascript" src="../../lib/easeljs-0.8.2.combined.js"></script>
+  <script type="text/javascript">
+    var stage = new createjs.Stage('myCanvas');
+
+    var text = new createjs.Text("Hello World", "20px Arial", "#B7B7B7");
+    //Locale the text to be the center of stage
+    text.x = stage.canvas.width/2 - text.getBounds().width/2;
+    text.y = stage.canvas.height/2 - text.getBounds().height/2;
+
+    stage.addChild(text);
+    stage.update();
+  </script>
+</html>

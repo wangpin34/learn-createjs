@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>easeljs adjust bar demo</title>
+    <style>
+
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas"/>
+  </body>
+  <script type="text/javascript" src="../../lib/easeljs-0.8.2.combined.js"></script>
+  <script type="text/javascript" src="./adjust-bar.js"></script>
+  <script type="text/javascript">
+    var stage = new createjs.Stage('myCanvas');
+    var myBar = new AdjustBar(stage,'myBar', -100, 100, 50, 'summer');
+    myBar.onChange(function(num){
+      console.log('current num ' + num )
+    })
+  </script>
+</html>

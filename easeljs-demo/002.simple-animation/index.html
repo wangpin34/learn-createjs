@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>easeljs simple animation demo</title>
+    <style>
+      canvas {
+        border: 1px solid #C1FFC1;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas"></canvas>
+  </body>
+  <script type="text/javascript" src="../../lib/easeljs-0.8.2.combined.js"></script>
+  <script type="text/javascript">
+    var stage = new createjs.Stage('myCanvas');
+
+    var r = 30;
+    var topOffset = parseInt(stage.canvas.height)/2;
+    var circle = new createjs.Shape();
+    //The default refer pointer of circle is the center of a circle. So it's ncessary to set the x,y value to make the circle all visible on the stage
+    circle.graphics.beginFill('#C1FFC1').drawCircle(r, topOffset, r);
+
+    stage.addChild(circle);
+    stage.update();
+
+
+    createjs.Ticker.addEventListener('tick', function(){
+      circle.x += 1;
+
+      if(circle.x > stage.canvas.width ) {
+        circle.x = r;
+      }
+      stage.update();
+    })
+
+  </script>
+</html>

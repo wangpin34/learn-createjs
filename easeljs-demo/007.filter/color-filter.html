@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>easeljs blur filter demo</title>
+    <style>
+
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="imageCanvas" width="500" height="500"></canvas>
+  </body>
+  <script type="text/javascript" src="../../lib/easeljs-0.8.2.combined.js"></script>
+  <script type="text/javascript" src="../006.adjust-bar/adjust-bar.js"></script>
+  <script type="text/javascript">
+
+  var imageStage = new createjs.Stage('imageCanvas');
+  var image = new Image();
+  image.src = '/assets/a.jpg';
+  var bitmap = new createjs.Bitmap(image);
+  var matrix = new createjs.ColorMatrix();
+  bitmap.filters = [
+    new createjs.ColorMatrixFilter(matrix)
+  ];
+  image.onload = function(){
+    bitmap.scaleX = bitmap.scaleY = Math.min(imageStage.canvas.width/image.width, imageStage.canvas.height/image.height);
+    bitmap.cache(0, 0, image.width, image.height);
+    imageStage.update();
+  }
+
+  imageStage.addChild(bitmap);
+
+  var maxBrightness = 100, minBrightness = -99;
+  var brightness = new AdjustBar(imageStage,'brightness', minBrightness, maxBrightness, 0, 'summer');
+  //var saturation = new AdjustBar(imageStage,'saturation', -100, 100, 0, 'summer');
+  //var hue = new AdjustBar(imageStage,'hue', -180, 180, 0, 'summer')
+  brightness.getDisplayObject().set({x: 0, y: imageStage.canvas.height - 30});
+  brightness.onChange(function(num){
+    if(num > maxBrightness){
+      num = maxBrightness;
+    }
+    if(num < minBrightness){
+      num = minBrightness;
+    }
+    console.log('brightness: ' + num );
+    matrix.adjustBrightness(num);
+  });
+
+  var maxContrast = 100, minContrast = -65;
+  var contrast = new AdjustBar(imageStage,'contrast', minContrast, maxContrast, 0, 'summer');
+  contrast.getDisplayObject().set({x: 0, y: imageStage.canvas.height - 60});
+  contrast.onChange(function(num){
+    if(num > maxContrast){
+      num = maxContrast;
+    }
+    if(num < minContrast){
+      num = minContrast;
+    }
+    console.log('contrast: ' + num );
+    matrix.adjustContrast(num);
+  });
+
+  var saturation = new AdjustBar(imageStage,'saturation', minContrast, maxContrast, 0, 'summer');
+  saturation.getDisplayObject().set({x: 0, y: imageStage.canvas.height - 90});
+  saturation.onChange(function(num){
+    if(num > maxContrast){
+      num = maxContrast;
+    }
+    if(num < minContrast){
+      num = minContrast;
+    }
+    console.log('contrast: ' + num );
+    matrix.adjustSaturation(num);
+  });
+
+  var hue = new AdjustBar(imageStage,'hue', minContrast, maxContrast, 0, 'summer');
+  hue.getDisplayObject().set({x: 0, y: imageStage.canvas.height - 120});
+  hue.onChange(function(num){
+    if(num > maxContrast){
+      num = maxContrast;
+    }
+    if(num < minContrast){
+      num = minContrast;
+    }
+    console.log('contrast: ' + num );
+    matrix.adjustHue(num);
+  });
+
+  imageStage.update();
+  createjs.Ticker.addEventListener("tick", function(){
+    bitmap.updateCache();
+  });
+
+  </script>
+</html>

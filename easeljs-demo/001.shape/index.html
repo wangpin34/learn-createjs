@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>easeljs basic demo</title>
+  </head>
+  <body>
+    <canvas id="myCanvas"></canvas>
+  </body>
+  <script type="text/javascript" src="../../lib/easeljs-0.8.2.combined.js"></script>
+  <script type="text/javascript">
+    var stage = new createjs.Stage('myCanvas');
+
+    var rect = new createjs.Shape();
+    rect.graphics.beginFill('red').drawRect(0, 0, 120, 120);
+
+    stage.addChild(rect);
+    stage.update();
+  </script>
+</html>

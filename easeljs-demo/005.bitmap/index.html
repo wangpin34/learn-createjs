@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>easeljs bitmap demo</title>
+  </head>
+  <body>
+    <canvas id="myCanvas"></canvas>
+  </body>
+  <script type="text/javascript" src="../../lib/easeljs-0.8.2.combined.js"></script>
+  <script type="text/javascript">
+    var stage = new createjs.Stage('myCanvas');
+    stage.canvas.width = stage.canvas.clientWidth;
+    stage.canvas.height = stage.canvas.clientHeight;
+    var stageWidth = stage.canvas.width;
+    var stageHeight = stage.canvas.height;
+
+    //Preload image
+    var img = new Image();
+    img.src = '../assets/p1.png';
+
+    var bitmap = new createjs.Bitmap(img);
+
+    img.onload = function() {
+      var originalWidth = bitmap.getBounds().width;
+      var originalheight = bitmap.getBounds().height;
+
+      var scale = Math.min(stageWidth/originalWidth, stageHeight/originalheight);
+      bitmap.scaleX = bitmap.scaleY = scale;
+      stage.update();
+    };
+
+    stage.addChild(bitmap);
+    stage.update();
+  </script>
+</html>
